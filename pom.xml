@@ -14,7 +14,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sfg-training-pet-clinic</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>sfg-training-pet-clinic</name>
     <description>sfg-training-pet-clinic</description>
     <properties>
@@ -40,7 +40,7 @@
     </build>
     <scm>
         <developerConnection>scm:git:git@github.com:VinCode91/sfg-training-pet-clinic.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>sfg-training-pet-clinic-0.0.2</tag>
   </scm>
 
 </project>
