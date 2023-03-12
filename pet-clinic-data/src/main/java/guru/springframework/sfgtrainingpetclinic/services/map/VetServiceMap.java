@@ -1,6 +1,8 @@
 package guru.springframework.sfgtrainingpetclinic.services.map;
 
+import guru.springframework.sfgtrainingpetclinic.model.Specialty;
 import guru.springframework.sfgtrainingpetclinic.model.Vet;
+import guru.springframework.sfgtrainingpetclinic.services.SpecialtyService;
 import guru.springframework.sfgtrainingpetclinic.services.VetService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,13 @@ import java.util.Set;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet> implements VetService {
+
+    private final SpecialtyService specialtyService;
+
+    public VetServiceMap(SpecialtyService specialtyService) {
+        this.specialtyService = specialtyService;
+    }
+
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -26,6 +35,15 @@ public class VetServiceMap extends AbstractMapService<Vet> implements VetService
 
     @Override
     public Vet save(Vet object) {
+        if (object!=null && object.getSpecialties().size() > 0) {
+            object.getSpecialties().forEach(spe -> {
+                if (spe.getId() == null) {
+                    Specialty savedSpecialty = specialtyService.save(spe);
+                    spe.setId(savedSpecialty.getId());
+                }
+            });
+        }
+
         return super.save(object);
     }
 

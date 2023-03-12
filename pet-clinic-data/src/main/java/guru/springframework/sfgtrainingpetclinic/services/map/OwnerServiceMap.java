@@ -1,6 +1,8 @@
 package guru.springframework.sfgtrainingpetclinic.services.map;
 
 import guru.springframework.sfgtrainingpetclinic.model.Owner;
+import guru.springframework.sfgtrainingpetclinic.model.Pet;
+import guru.springframework.sfgtrainingpetclinic.model.PetType;
 import guru.springframework.sfgtrainingpetclinic.services.OwnerService;
 import guru.springframework.sfgtrainingpetclinic.services.PetService;
 import guru.springframework.sfgtrainingpetclinic.services.PetTypeService;
@@ -42,14 +44,16 @@ public class OwnerServiceMap extends AbstractMapService<Owner> implements OwnerS
                 object.getPets().forEach( pet -> {
                     if (pet.getPetType() != null) {
                         if (pet.getPetType().getId() == null) {
-                            pet.setPetType(petTypeService.save(pet.getPetType()));
+                            PetType savedPetType = petTypeService.save(pet.getPetType());
+                            pet.setPetType(savedPetType);
                         }
                     } else {
                         throw new RuntimeException("Pet Type is required");
                     }
 
                     if (pet.getId() == null) {
-                        pet.setId(petService.save(pet).getId());
+                        Pet savedPet = petService.save(pet);
+                        pet.setId(pet.getId());
                     }
                 });
             }
