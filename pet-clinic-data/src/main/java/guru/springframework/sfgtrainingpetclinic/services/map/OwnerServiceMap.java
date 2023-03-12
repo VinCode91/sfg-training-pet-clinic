@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+public class OwnerServiceMap extends AbstractMapService<Owner> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
