@@ -8,7 +8,6 @@ import java.util.Set;
 
 @Service
 public class VisitMapService extends AbstractMapService<Visit> implements VisitService {
-    //private final
 
     @Override
     public Set<Visit> findAll() {
