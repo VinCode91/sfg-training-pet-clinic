@@ -8,6 +8,10 @@ public abstract class AbstractMapService<T extends BaseEntity> {
 
     protected Map<Long, T> map = new HashMap<>();
 
+    public void setMap(Map<Long, T> map) {
+        this.map = map;
+    }
+
     Set<T> findAll() {
         return new HashSet<>(map.values());
     }
