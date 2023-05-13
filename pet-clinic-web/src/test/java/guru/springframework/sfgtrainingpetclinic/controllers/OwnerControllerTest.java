@@ -15,7 +15,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verifyNoInteractions;
 
@@ -55,5 +57,17 @@ class OwnerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("notimplemented"));
         verifyNoInteractions(ownerService);
+    }
+
+    @Test
+    void displayOwner() throws Exception {
+        // given
+        given(ownerService.findById(anyLong())).willReturn(Owner.builder().id(1L).lastName("Ndiaye").build());
+
+        // when - then
+        mockMvc.perform(MockMvcRequestBuilders.get("/owners/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("owner", hasProperty("id", is(1L))))
+                .andExpect(MockMvcResultMatchers.view().name("owners/ownerDetails"));
     }
 }
